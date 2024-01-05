@@ -3,6 +3,25 @@
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
+
+    --mouse-x: 0px;
+    --mouse-y: 0px;
+}
+
+.pointer {
+    display: none;
+    position: absolute;
+    z-index: +2;
+    pointer-events: none;
+
+    height: 0px;
+    width: 0px;
+
+    border: 2px solid red;
+    border-radius: 50%;
+}
+.pointer-visible {
+    display: flex;
 }
 
 .card {
@@ -15,6 +34,10 @@
     border-left: 1px solid white;
     border-right: 1px solid #6c6c6c;
     border-bottom: 1px solid #6c6c6c;
+    transition: transform 0.25s ease;
+}
+.active {
+    transform: scale(1.02);
 }
 .card .name {
     position: absolute;
