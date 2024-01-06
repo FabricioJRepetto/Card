@@ -3,9 +3,7 @@
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
-
-    --mouse-x: 0px;
-    --mouse-y: 0px;
+    /* perspective: 1000px; */
 }
 
 .pointer {
@@ -34,10 +32,13 @@
     border-left: 1px solid white;
     border-right: 1px solid #6c6c6c;
     border-bottom: 1px solid #6c6c6c;
-    transition: transform 0.25s ease;
+
+    /* transform: rotate3d(1, 1, 1, 45deg); */
+    rotate: 0 0 0 0deg;
+    transition: rotate 0.25s ease;
 }
 .active {
-    transform: scale(1.02);
+    /* transform: scale(1.02); */
 }
 .card .name {
     position: absolute;
