@@ -3,28 +3,17 @@
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
-    /* perspective: 1000px; */
 }
 
-.pointer {
-    display: none;
-    position: absolute;
-    z-index: +2;
-    pointer-events: none;
-
-    height: 0px;
-    width: 0px;
-
-    border: 2px solid red;
-    border-radius: 50%;
-}
-.pointer-visible {
+.cardsContainer {
     display: flex;
+    gap: 1rem;
 }
 
 .card {
     position: relative;
-    overflow: hidden;
+    overflow: clip;
+    user-select: none;
     height: 400px;
     width: 267px;
     border-radius: 1rem;
@@ -33,19 +22,120 @@
     border-right: 1px solid #6c6c6c;
     border-bottom: 1px solid #6c6c6c;
 
-    /* transform: rotate3d(1, 1, 1, 45deg); */
-    rotate: 0 0 0 0deg;
-    transition: rotate 0.25s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
 }
 .active {
-    /* transform: scale(1.02); */
+    transform: scale(1.02);
+}
+.pointer {
+    /* display: none; */
+    height: 5px;
+    width: 5px;
+    background-color: red;
+    border: 2px solid red;
+    border-radius: 50%;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateZ(30px) translateX(-50%) translateY(-50%);
+}
+.pointer-visible {
+    /* display: flex; */
+}
+
+.glare {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 150%;
+    height: 150%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 75%);
+    background-size: 300%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: translate(-25%, -25%);
+    opacity: 0;
+    z-index: 3;
+}
+.chroma {
+    /* position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 150%;
+    height: 150%;
+    pointer-events: none;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 42%,
+        rgba(255, 255, 255, 1) 43%,
+        rgba(255, 255, 255, 1) 45%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    background-size: 300%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: translate(-25%, -25%);
+    mix-blend-mode: screen;
+    opacity: 0;
+    z-index: +1; */
+}
+.chroma-mask {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        #ff6e67 0%,
+        #b35af0 17%,
+        #816bff 28%,
+        #32ccbd 40%,
+        #1dfda8 52%,
+        #d1c949 63%,
+        #fcbd32 81%,
+        #ff6e67 100%
+    );
+    background-size: 400%;
+    transform: translate(-25%, -25%);
+    mix-blend-mode: color-dodge;
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-position: center;
+    mask-position: center;
+
+    -webkit-mask-size: auto 100%;
+    mask-size: auto 100%;
+
+    opacity: 0;
+    z-index: 3;
 }
 .card .name {
+    width: 100%;
     position: absolute;
+    text-transform: uppercase;
     top: 0;
-    left: 1rem;
+    left: 0;
     margin: 0;
     font-weight: 800;
+    font-size: 2.5rem;
+    z-index: -1;
+}
+.card .namejp {
+    position: absolute;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 100;
+    writing-mode: vertical-rl;
+    top: 4rem;
+    left: 0.5rem;
+    margin: 0;
     font-size: 2.5rem;
     z-index: -1;
 }
@@ -67,9 +157,12 @@
     min-width: 100%;
     left: 50%;
     transform: translate(-50%);
+    -webkit-user-drag: none;
+    z-index: 2;
 }
 .card .type {
     position: absolute;
     bottom: 0;
     right: 1rem;
+    z-index: 4;
 }
